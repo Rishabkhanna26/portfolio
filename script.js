@@ -241,3 +241,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  const loaderWrapper = document.getElementById('loader-wrapper');
+  const portfolioWrapper = document.querySelector('.portfolio-wrapper');
+  const minLoaderTime = 1400;
+  const startTime = Date.now();
+
+  window.addEventListener('load', () => {
+    const timeElapsed = Date.now() - startTime;
+    const remainingTime = Math.max(0, minLoaderTime - timeElapsed);
+
+    setTimeout(() => {
+      loaderWrapper.classList.add('hidden');
+      portfolioWrapper.classList.add('portfolio-visible');
+      populateSkills();
+      populateExperience();
+      populateProjects();
+      initScrollAnimations();
+      initHeaderScrollEffects();
+    }, remainingTime);
+  });
+
+  rotateGreeting();
+  setInterval(rotateGreeting, 1500);
+});
