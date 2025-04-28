@@ -18,6 +18,7 @@ const experiences = [
     date: 'Oct 2023 - Present',
     title: 'Full Stack Developer',
     company: 'Erosteps, Jalandhar',
+    image: 'https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     details: [
       'Developing and maintaining web applications',
       'Working with modern JavaScript frameworks',
@@ -28,6 +29,7 @@ const experiences = [
     date: 'Nov 2023 - Present',
     title: 'Web Administrator',
     company: 'Saurabh Pandey UPSC',
+    image: 'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     details: [
       'Managed technical aspects of saurabhpandeyupsc.com',
       'Handled content updates and performance optimization',
@@ -41,134 +43,116 @@ const projects = [
   {
     title: 'Admin Leave Management',
     description: 'WordPress plugin for managing employee leaves with jQuery and AJAX integration.',
+    image: 'admin leave1.png',
     tech: ['WordPress', 'PHP', 'jQuery', 'AJAX']
   },
   {
     title: 'Expense Management System',
     description: 'Admin dashboard for expense tracking and management using jQuery and AJAX.',
+    image: 'expenses1.png',
     tech: ['PHP', 'MySQL', 'jQuery', 'AJAX']
   },
   {
     title: 'WhatsApp Automation',
     description: 'Node.js application for automated WhatsApp messaging with Discord integration and QR authentication.',
+    image: 'https://images.pexels.com/photos/4132538/pexels-photo-4132538.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     tech: ['Node.js', 'Discord.js', 'WebSocket', 'MongoDB']
   },
   {
     title: 'Utility Tools',
     description: 'Image compression and PDF generation tools using DOM PDF.',
+    image: 'image optimize1.png',
     tech: ['PHP', 'DOM PDF', 'JavaScript']
   }
 ];
 
-// DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-  const loaderWrapper = document.getElementById('loader-wrapper');
-  const portfolioWrapper = document.querySelector('.portfolio-wrapper');
-  const minLoaderTime = 1400;
-  const startTime = Date.now();
-
-  window.addEventListener('load', () => {
-    const timeElapsed = Date.now() - startTime;
-    const remainingTime = Math.max(0, minLoaderTime - timeElapsed);
-
-    setTimeout(() => {
-      loaderWrapper.classList.add('hidden');
-      portfolioWrapper.classList.add('portfolio-visible');
-      populateSkills();
-      populateExperience();
-      populateProjects();
-      initScrollAnimations();
-      initHeaderScrollEffects();
-    }, remainingTime);
-  });
-
-  rotateGreeting();
-  setInterval(rotateGreeting, 1500);
-
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      subject: document.getElementById('subject').value,
-      message: document.getElementById('message').value,
-      to: 'rishabkhanna26@gmail.com'
-    };
-
-    const mailtoLink = `mailto:${formData.to}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
-    window.location.href = mailtoLink;
-  });
-});
-
-// Populate Functions
-function populateSkills() {
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+  // Populate skills
   const skillsGrid = document.querySelector('.skills-grid');
-  skillsGrid.innerHTML = '';
-  skills.forEach(skill => {
-    skillsGrid.innerHTML += `
-      <div class="skill-card">
-        <i class="${skill.icon}"></i>
-        <span>${skill.name}</span>
-        <div class="skill-info">${skill.info}</div>
-      </div>
-    `;
-  });
-}
-
-function populateExperience() {
-  const timeline = document.querySelector('.timeline');
-  timeline.innerHTML = '';
-  experiences.forEach(exp => {
-    timeline.innerHTML += `
-      <div class="timeline-item">
-        <div class="timeline-content">
-          <div class="timeline-date">${exp.date}</div>
-          <h3>${exp.title}</h3>
-          <p>${exp.company}</p>
-          <ul class="experience-details">
-            ${exp.details.map(detail => `<li>${detail}</li>`).join('')}
-          </ul>
+  if (skillsGrid) {
+    skills.forEach(skill => {
+      skillsGrid.innerHTML += `
+        <div class="skill-card">
+          <i class="${skill.icon}"></i>
+          <span>${skill.name}</span>
+          <div class="skill-info">${skill.info}</div>
         </div>
-      </div>
-    `;
-  });
-}
+      `;
+    });
+  }
 
-function populateProjects() {
-  const projectsGrid = document.querySelector('.projects-grid');
-  projectsGrid.innerHTML = '';
-  projects.forEach(project => {
-    projectsGrid.innerHTML += `
-      <div class="project-card">
-        <div class="project-content">
-          <h3 class="project-title">${project.title}</h3>
-          <p class="project-description">${project.description}</p>
-          <div class="project-tech">
-            ${project.tech.map(tech => `<span>${tech}</span>`).join('')}
+  // Populate experience timeline
+  const timeline = document.querySelector('.timeline');
+  if (timeline) {
+    experiences.forEach(exp => {
+      timeline.innerHTML += `
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="experience-header">
+              <div class="experience-company">
+                <img src="${exp.image}" alt="${exp.company}">
+                <div>
+                  <h3>${exp.title}</h3>
+                  <p>${exp.company}</p>
+                </div>
+              </div>
+              <span class="experience-date">${exp.date}</span>
+            </div>
+            <div class="experience-body">
+              <ul class="experience-details">
+                ${exp.details.map(detail => `<li>${detail}</li>`).join('')}
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
-    `;
-  });
-}
-
-// Greeting Rotation
-const greetings = [
-  "HELLO", "नमस्ते", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "হ্যালো", "హలో", "नमस्कार", "வணக்கம்",
-  "નમસ્તે", "سلام", "ಹಲೋ", "ഹലോ", "ନମସ୍କାର", "নমস্কাৰ", "नमस्कार", "नमः"
-];
-
-let greetIndex = 0;
-function rotateGreeting() {
-  const helloEl = document.getElementById('hello');
-  if (helloEl) {
-    helloEl.textContent = greetings[greetIndex];
-    greetIndex = (greetIndex + 1) % greetings.length;
+      `;
+    });
   }
-}
 
-// Scroll Animations
-function initScrollAnimations() {
+  // Populate projects
+  const projectsGrid = document.querySelector('.projects-grid');
+  if (projectsGrid) {
+    projects.forEach(project => {
+      projectsGrid.innerHTML += `
+        <div class="project-card">
+          <div class="project-image">
+            <img src="${project.image}" alt="${project.title}">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">${project.title}</h3>
+            <p class="project-description">${project.description}</p>
+            <div class="project-tech">
+              ${project.tech.map(tech => `<span>${tech}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    });
+  }
+
+  // Greeting rotation
+  const greetings = [
+    "HELLO", "नमस्ते", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "হ্যালো", "హలో", "नमस्कार", "வணக்கம்",
+    "નમસ્તે", "سلام", "ಹಲೋ", "ഹലോ", "ନମସ୍କାର", "নমস্কাৰ", "नमस्कार", "नमः"
+  ];
+
+  let greetIndex = 0;
+  const helloEl = document.getElementById('hello');
+
+  function rotateGreeting() {
+    if (helloEl) {
+      helloEl.textContent = greetings[greetIndex];
+      greetIndex = (greetIndex + 1) % greetings.length;
+    }
+  }
+
+  if (helloEl) {
+    rotateGreeting();
+    setInterval(rotateGreeting, 1500);
+  }
+
+  // Scroll animations
   window.addEventListener('scroll', function() {
     const scrollTop = window.scrollY;
     const maxScroll = 300;
@@ -182,8 +166,13 @@ function initScrollAnimations() {
     const buttons = document.querySelector('.buttons');
     const header = document.querySelector('.header');
 
+    // Header scroll effect
     if (header) {
-      header.classList.toggle('scrolled', scrollTop > 50);
+      if (scrollTop > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
     }
 
     if (profile) {
@@ -217,10 +206,8 @@ function initScrollAnimations() {
       buttons.style.opacity = `${1 - scrollFraction}`;
     }
   });
-}
 
-// Section Animation Observer
-function initHeaderScrollEffects() {
+  // Intersection Observer for animations
   const sectionObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -234,4 +221,23 @@ function initHeaderScrollEffects() {
   document.querySelectorAll('.section, .timeline-item').forEach(element => {
     sectionObserver.observe(element);
   });
-}
+
+  // Contact form handling
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name')?.value || '',
+        email: document.getElementById('email')?.value || '',
+        subject: document.getElementById('subject')?.value || '',
+        message: document.getElementById('message')?.value || '',
+        to: 'rishabkhanna26@gmail.com'
+      };
+
+      const mailtoLink = `mailto:${formData.to}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
+      window.location.href = mailtoLink;
+    });
+  }
+});
