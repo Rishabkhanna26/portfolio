@@ -276,9 +276,9 @@ body {
   padding: 15px;
   border-radius: 8px;
   width: max-content;
-  max-width: min(120%, 90vw);
+  max-width: min(90%, 90vw);
   left: 50%;
-  top: 85%;
+  top: 90%;
   transform: translateX(-50%) scale(0);
   opacity: 0;
   visibility: hidden;
@@ -893,7 +893,6 @@ body {
     font-size: 0.75rem;
   }
 }
-
 /* Modern Loader Styles */
 #loader-wrapper {
   position: fixed;
@@ -961,4 +960,3 @@ body {
   opacity: 0;
   visibility: hidden;
 }
-
