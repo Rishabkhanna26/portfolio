@@ -100,10 +100,6 @@ const projects = [
     tech: ['Node.js', 'MySQL', 'WhatsApp API']
   }
 ];
-const projects = [
-
-  
-];
 
 // Greeting rotation function
 function rotateGreeting() {
