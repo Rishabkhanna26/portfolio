@@ -43,19 +43,19 @@ const projects = [
    {
     title: 'Admin Leave Management',
     description: 'WordPress plugin for managing employee leaves with jQuery and AJAX integration.',
-    images: ['public/adminleave1.png', 'public/adminleave2.png'],
+    images: ['/adminleave1.png', '/adminleave2.png'],
     tech: ['WordPress', 'PHP', 'jQuery', 'AJAX']
   },
   {
     title: 'Expense Management System',
     description: 'Admin dashboard for expense tracking and management using jQuery and AJAX.',
-    images: ['public/expenses1.png', 'public/expenses2.png'],
+    images: ['/expenses1.png', '/expenses2.png'],
     tech: ['PHP', 'MySQL', 'jQuery', 'AJAX']
   },
   {
     title: 'Image Optimization Plugin',
     description: 'WordPress plugin for automatic image optimization, supporting multiple formats and compression levels.',
-    images: ['public/imageoptimize1.png', 'public/imageoptimize2.png', 'public/imageoptimize3.png'],
+    images: ['/imageoptimize1.png', '/imageoptimize2.png', '/imageoptimize3.png'],
     tech: ['WordPress', 'PHP', 'JavaScript', 'Image Processing']
   },
   {
