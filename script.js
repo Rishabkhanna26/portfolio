@@ -1,4 +1,4 @@
-// Data
+// 1. Data Arrays
 const skills = [
   { icon: 'fab fa-html5', name: 'HTML5', info: 'Intermediate: Semantic markup, accessibility best practices, and modern HTML5 features.' },
   { icon: 'fab fa-css3-alt', name: 'CSS3', info: 'Intermediate: Flexbox, Grid, animations, and responsive design principles.' },
@@ -101,7 +101,7 @@ const projects = [
   }
 ];
 
-// Greeting rotation function
+// 2. Greeting Rotation Function
 function rotateGreeting() {
   const greetings = [
     "HELLO", "नमस्ते", "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "হ্যালো", "హలో", "नमस्कार", "வணக்கம்",
@@ -124,21 +124,18 @@ function rotateGreeting() {
   }
 }
 
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function () {
+// 3. Main jQuery DOM Ready Block
+$(function () {
   // Handle loader
-  const loaderWrapper = document.getElementById('loader-wrapper');
+  const loaderWrapper = $('#loader-wrapper');
   const minLoaderTime = 1400;
   const startTime = Date.now();
 
-  window.addEventListener('load', () => {
+  $(window).on('load', function () {
     const timeElapsed = Date.now() - startTime;
     const remainingTime = Math.max(0, minLoaderTime - timeElapsed);
-
-    setTimeout(() => {
-      if (loaderWrapper) {
-        loaderWrapper.classList.add('hidden');
-      }
+    setTimeout(function () {
+      loaderWrapper.addClass('hidden');
     }, remainingTime);
   });
 
@@ -146,23 +143,23 @@ document.addEventListener('DOMContentLoaded', function () {
   rotateGreeting();
 
   // Populate skills
-  const skillsGrid = document.querySelector('.skills-grid');
-  if (skillsGrid) {
+  const skillsGrid = $('.skills-grid');
+  if (skillsGrid.length) {
     skills.forEach(skill => {
-      skillsGrid.innerHTML += `
+      skillsGrid.append(`
         <div class="skill-card">
           <i class="${skill.icon}"></i>
           <span>${skill.name}</span>
         </div>
-      `;
+      `);
     });
   }
 
   // Populate experience timeline
-  const timeline = document.querySelector('.timeline');
-  if (timeline) {
+  const timeline = $('.timeline');
+  if (timeline.length) {
     experiences.forEach(exp => {
-      timeline.innerHTML += `
+      timeline.append(`
         <div class="timeline-item">
           <div class="timeline-content">
             <div class="experience-header">
@@ -182,14 +179,13 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
         </div>
-      `;
+      `);
     });
   }
 
   // Create modal element
-  const modal = document.createElement('div');
-  modal.className = 'modal';
-  modal.innerHTML = `
+  const modal = $('<div class="modal"></div>');
+  modal.html(`
     <div class="modal-content">
       <button class="modal-close">&times;</button>
       <img class="modal-image" src="" alt="Project Image">
@@ -198,44 +194,38 @@ document.addEventListener('DOMContentLoaded', function () {
         <button class="modal-next"><i class="fas fa-chevron-right"></i></button>
       </div>
     </div>
-  `;
-  document.body.appendChild(modal);
+  `);
+  $('body').append(modal);
 
-  // Modal functionality
   let currentProjectIndex = 0;
   let currentImageIndex = 0;
 
   function updateModalImage() {
-    const modalImg = modal.querySelector('.modal-image');
-    modalImg.src = projects[currentProjectIndex].images[currentImageIndex];
+    modal.find('.modal-image').attr('src', projects[currentProjectIndex].images[currentImageIndex]);
   }
 
-  modal.querySelector('.modal-close').addEventListener('click', () => {
-    modal.classList.remove('active');
+  modal.find('.modal-close').on('click', function () {
+    modal.removeClass('active');
   });
-
-  modal.querySelector('.modal-prev').addEventListener('click', () => {
+  modal.find('.modal-prev').on('click', function () {
     currentImageIndex = (currentImageIndex - 1 + projects[currentProjectIndex].images.length) % projects[currentProjectIndex].images.length;
     updateModalImage();
   });
-
-  modal.querySelector('.modal-next').addEventListener('click', () => {
+  modal.find('.modal-next').on('click', function () {
     currentImageIndex = (currentImageIndex + 1) % projects[currentProjectIndex].images.length;
     updateModalImage();
   });
-
-  // Close modal when clicking outside
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.classList.remove('active');
+  modal.on('click', function (e) {
+    if (e.target === this) {
+      modal.removeClass('active');
     }
   });
 
   // Populate projects with image slider
-  const projectsGrid = document.querySelector('.projects-grid');
-  if (projectsGrid) {
+  const projectsGrid = $('.projects-grid');
+  if (projectsGrid.length) {
     projects.forEach((project, projectIndex) => {
-      projectsGrid.innerHTML += `
+      projectsGrid.append(`
         <div class="project-card">
           <div class="project-image-slider">
             <div class="slider-container" id="slider-${projectIndex}">
@@ -260,141 +250,128 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
           </div>
         </div>
-      `;
+      `);
     });
 
-    // Initialize image sliders and click handlers
     projects.forEach((_, projectIndex) => {
-      const slider = document.querySelector(`#slider-${projectIndex}`);
-      const dots = slider.parentElement.querySelector('.slider-dots');
-
-      // Handle image clicks
-      slider.querySelectorAll('.slider-image').forEach(img => {
-        img.addEventListener('click', (e) => {
-          currentProjectIndex = parseInt(e.target.dataset.project);
-          currentImageIndex = parseInt(e.target.dataset.image);
-          updateModalImage();
-          modal.classList.add('active');
-        });
+      const slider = $(`#slider-${projectIndex}`);
+      const dots = slider.parent().find('.slider-dots');
+      slider.find('.slider-image').on('click', function () {
+        currentProjectIndex = parseInt($(this).data('project'));
+        currentImageIndex = parseInt($(this).data('image'));
+        updateModalImage();
+        modal.addClass('active');
       });
-
-      // Handle dot navigation
-      dots.addEventListener('click', (e) => {
-        if (e.target.classList.contains('dot')) {
-          const index = parseInt(e.target.dataset.index);
-          const images = slider.querySelectorAll('.slider-image');
-          const allDots = dots.querySelectorAll('.dot');
-
-          images.forEach(img => img.classList.remove('active'));
-          allDots.forEach(dot => dot.classList.remove('active'));
-
-          images[index].classList.add('active');
-          e.target.classList.add('active');
-        }
+      dots.on('click', '.dot', function () {
+        const index = parseInt($(this).data('index'));
+        const images = slider.find('.slider-image');
+        const allDots = dots.find('.dot');
+        images.removeClass('active');
+        allDots.removeClass('active');
+        images.eq(index).addClass('active');
+        $(this).addClass('active');
       });
-
-      // Auto-rotate images
       let currentIndex = 0;
-      setInterval(() => {
-        const images = slider.querySelectorAll('.slider-image');
-        const allDots = dots.querySelectorAll('.dot');
-
+      setInterval(function () {
+        const images = slider.find('.slider-image');
+        const allDots = dots.find('.dot');
         if (images.length > 1) {
-          images[currentIndex].classList.remove('active');
-          allDots[currentIndex].classList.remove('active');
-
+          images.eq(currentIndex).removeClass('active');
+          allDots.eq(currentIndex).removeClass('active');
           currentIndex = (currentIndex + 1) % images.length;
-
-          images[currentIndex].classList.add('active');
-          allDots[currentIndex].classList.add('active');
+          images.eq(currentIndex).addClass('active');
+          allDots.eq(currentIndex).addClass('active');
         }
       }, 5000);
     });
   }
 
   // Scroll animations
-  window.addEventListener('scroll', function () {
-    const scrollTop = window.scrollY;
+  $(window).on('scroll', function () {
+    const scrollTop = $(window).scrollTop();
     const maxScroll = 300;
     const scrollFraction = Math.min(scrollTop / maxScroll, 1);
-    const isMobile = window.innerWidth <= 768;
-  
-    const profile = document.querySelector('.profile');
-    const miniProfile = document.querySelector('.mini-profile');
-    const name = document.querySelector('.name');
-    const intro = document.querySelector('.intro');
-    const buttons = document.querySelector('.buttons');
-    const header = document.querySelector('.header');
-  
-    if (header) {
+    const isMobile = $(window).width() <= 768;
+    const profile = $('.profile');
+    const miniProfile = $('.mini-profile');
+    const name = $('.name');
+    const intro = $('.intro');
+    const buttons = $('.buttons');
+    const header = $('.header');
+    if (header.length) {
       if (scrollTop > 50) {
-        header.classList.add('scrolled');
+        header.addClass('scrolled');
       } else {
-        header.classList.remove('scrolled');
+        header.removeClass('scrolled');
       }
     }
-  
-    if (profile) {
+    if (profile.length) {
       const scale = 1 - scrollFraction * (isMobile ? 0.4 : 0.6);
       const translateX = scrollFraction * (isMobile ? -30 : -50);
       const translateY = scrollFraction * (isMobile ? -50 : -80);
-      profile.style.transform = `scale(${scale}) translate(${translateX}px, ${translateY}px)`;
-      profile.style.opacity = `${1 - scrollFraction}`;
+      profile.css({
+        transform: `scale(${scale}) translate(${translateX}px, ${translateY}px)`,
+        opacity: 1 - scrollFraction
+      });
     }
-  
-    if (miniProfile) {
+    if (miniProfile.length) {
       const size = 40 * scrollFraction;
-      miniProfile.style.width = `${size}px`;
-      miniProfile.style.height = `${size}px`;
-      miniProfile.style.opacity = `${scrollFraction}`;
+      miniProfile.css({
+        width: `${size}px`,
+        height: `${size}px`,
+        opacity: scrollFraction
+      });
     }
-  
-    if (name) {
+    if (name.length) {
       const translateX = isMobile ? 20 * scrollFraction : 60 * scrollFraction;
-      name.style.transform = `translateX(${translateX}px)`;
+      name.css('transform', `translateX(${translateX}px)`);
     }
-  
-    if (intro) {
+    if (intro.length) {
       const translateX = isMobile ? scrollFraction * 50 : scrollFraction * 100;
-      intro.style.transform = `translateX(${translateX}%)`;
-      intro.style.opacity = `${1 - scrollFraction}`;
+      intro.css({
+        transform: `translateX(${translateX}%)`,
+        opacity: 1 - scrollFraction
+      });
     }
-  
-    if (buttons) {
-      buttons.style.transform = `scale(${1 - scrollFraction * 0.3})`;
-      buttons.style.opacity = `${1 - scrollFraction}`;
+    if (buttons.length) {
+      buttons.css({
+        transform: `scale(${1 - scrollFraction * 0.3})`,
+        opacity: 1 - scrollFraction
+      });
     }
-  });
-  
-  // Intersection Observer for animations
-  const sectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, {
-    threshold: 0.2
   });
 
-  document.querySelectorAll('.section, .timeline-item').forEach(element => {
-    sectionObserver.observe(element);
-  });
+  // Intersection Observer for animations (no direct jQuery equivalent, so keep as is)
+  if ($(window).width() <= 768) {
+    // On mobile, always show all sections and timeline items
+    $('.section, .timeline-item').addClass('visible');
+  } else {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+    document.querySelectorAll('.section, .timeline-item').forEach(element => {
+      sectionObserver.observe(element);
+    });
+  }
 
   // Contact form handling
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
+  const contactForm = $('#contactForm');
+  if (contactForm.length) {
+    contactForm.on('submit', function (e) {
       e.preventDefault();
-
       const formData = {
-        name: document.getElementById('name')?.value || '',
-        email: document.getElementById('email')?.value || '',
-        subject: document.getElementById('subject')?.value || '',
-        message: document.getElementById('message')?.value || '',
+        name: $('#name').val() || '',
+        email: $('#email').val() || '',
+        subject: $('#subject').val() || '',
+        message: $('#message').val() || '',
         to: 'rishabkhanna26@gmail.com'
       };
-
       const mailtoLink = `mailto:${formData.to}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`)}`;
       window.location.href = mailtoLink;
     });
