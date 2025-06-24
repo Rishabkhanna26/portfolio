@@ -8,12 +8,9 @@ const skills = [
   { icon: 'fab fa-node-js', name: 'Node.js', info: 'Starting Phase: Building APIs, automation tools, and server-side applications.' },
   { icon: 'fab fa-php', name: 'PHP', info: 'Intermediate: OOP, MVC patterns, and working with databases.' },
   { icon: 'fab fa-git-alt', name: 'Git', info: 'Intermediate: Version control, branching strategies, and collaboration workflows.' },
-  { icon: 'fab fa-github', name: 'GitHub', info: 'Intermediate: Repository management, issues, and project collaboration.' },
-  { icon: 'fab fa-bootstrap', name: 'Bootstrap', info: 'Intermediate: Responsive layouts and UI components.' },
+  { icon: 'fab fa-github', name: 'Github', info: 'Intermediate: Repository management, issues, and project collaboration.' },
   { icon: 'fab fa-js', name: 'jQuery', info: 'Intermediate: DOM manipulation, event handling, and jQuery plugins.' },
-  { icon: 'fas fa-exchange-alt', name: 'AJAX', info: 'Intermediate: Asynchronous requests, API integration, and data handling.' },
-  // Use an <img> for Next.js logo
-  { icon: 'nextjs', name: 'Next.js', info: 'Starting Phase: Learning SSR, API routes, and file-based routing.' }
+  { icon: 'fas fa-exchange-alt', name: 'AJAX', info: 'Intermediate: Asynchronous requests, API integration, and data handling.' }
 ];
 
 const experiences = [
@@ -149,22 +146,12 @@ $(function () {
   const skillsGrid = $('.skills-grid');
   if (skillsGrid.length) {
     skills.forEach(skill => {
-      if (skill.icon === 'nextjs') {
-        // Use official Next.js SVG logo
-        skillsGrid.append(`
-          <div class="skill-card">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" style="width: 2.5em; height: 2.5em; background: #fff; border-radius: 8px; padding: 4px;" />
-            <span>${skill.name}</span>
-          </div>
-        `);
-      } else {
-        skillsGrid.append(`
-          <div class="skill-card">
-            <i class="${skill.icon}"></i>
-            <span>${skill.name}</span>
-          </div>
-        `);
-      }
+      skillsGrid.append(`
+        <div class="skill-card">
+          <i class="${skill.icon}"></i>
+          <span>${skill.name}</span>
+        </div>
+      `);
     });
   }
 
