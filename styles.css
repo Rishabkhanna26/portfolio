@@ -150,12 +150,15 @@ body{background:#3C2A5A;color:#fff;display:flex;flex-direction:column;align-item
 /* 12. Responsive Styles */
 @media (max-width:1200px){.skills-grid{grid-template-columns:repeat(3,minmax(100px,1fr));padding:15px;}}
 @media (max-width:1024px){.container{flex-direction:column;align-items:center;text-align:center;gap:30px;}.intro{padding:20px;max-width:100%;}.intro h2{font-size:2rem;}.intro h3{font-size:1.3rem;}.intro p{font-size:1rem;background:rgba(60,42,90,0.8);padding:15px;border-radius:10px;backdrop-filter:blur(5px);margin-top:10px;}.buttons{justify-content:center;}.projects-grid {
+    flex-direction: column;
+    align-items: center;
     gap: 18px;
-    padding: 16px 16px;
+    padding: 16px 8px;
   }
   .project-card {
-    max-width: 95vw;
-    margin: 0 8px 18px 8px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 0 18px 0;
   }}
 @media (max-width:768px){.header{flex-direction:row;align-items:center;padding:10px 15px;}.name-container{flex:1;}.header h1{font-size:1.3rem;white-space:nowrap;}.social-icons{justify-content:flex-end;gap:8px;}.social-icons a{width:35px;height:35px;font-size:1rem;}.profile{width:250px;height:250px;}.contact-container{grid-template-columns:1fr;gap:30px;}.contact-info{flex-direction:row;flex-wrap:wrap;}.contact-item{flex:1;min-width:250px;}.experience-header{flex-direction:column;align-items:flex-start;gap:15px;}.experience-company img{width:50px;height:50px;}.experience-company h3{font-size:1.2rem;}.project-image{height:180px;}html, body { scroll-behavior: smooth; overscroll-behavior-y: contain; scroll-padding-top: 80px; }}
 @media (max-width:600px) {
@@ -172,13 +175,15 @@ body{background:#3C2A5A;color:#fff;display:flex;flex-direction:column;align-item
   .intro h3 { font-size: 1.1rem; }
   .intro p { font-size: 0.98rem; }
   .projects-grid {
+    flex-direction: column;
+    align-items: center;
     gap: 10px;
-    padding: 6px 3vw;
+    padding: 6px 2vw;
   }
   .project-card {
-    max-width: 100%;
     width: 100%;
-    margin: 0 0 12px 0;
+    max-width: 100%;
+    margin: 0 0 10px 0;
   }
 }
 @media (max-width:480px){.header{padding:8px 12px;}.name-container{max-width:70%;}.header h1{font-size:1.2rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;}.social-icons{gap:5px;}.social-icons a{width:30px;height:30px;font-size:.9rem;}.buttons a{width:90px;height:90px;font-size:.85rem;}.profile{width:200px;height:200px;}.mini-profile{max-width:30px;max-height:30px;}.experience-company{flex-direction:column;align-items:flex-start;gap:10px;}.experience-company img{width:45px;height:45px;}.project-image{height:160px;}}
