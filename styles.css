@@ -266,7 +266,7 @@ body{background:#3C2A5A;color:#fff;display:flex;flex-direction:column;align-item
     margin-bottom: 8px;
     background: linear-gradient(135deg, #9573D6 60%, #7B4BC3 100%);
     border-radius: 50%;
-    padding: 30px;
+    padding: 32px;
     box-shadow: 0 1px 8px rgba(149, 115, 214, 0.13);
     object-fit: contain;
     border: 2px solid #fff2;
