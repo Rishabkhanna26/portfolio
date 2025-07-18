@@ -1,20 +1,4 @@
-// Google Analytics
-// Google tag (gtag.js)
-// Tracking ID: G-QPZCQFD427
-// This should ideally be placed in <head> of index.html, but adding here as requested.
-if (typeof window !== 'undefined') {
-  (function() {
-    var gtagScript = document.createElement('script');
-    gtagScript.async = true;
-    gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-QPZCQFD427';
-    document.head.appendChild(gtagScript);
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', 'G-QPZCQFD427');
-  })();
-}
+
 // 1. Data Arrays
 const skills = [
   { icon: 'fab fa-html5', name: 'HTML5', info: 'Intermediate: Semantic markup, accessibility best practices, and modern HTML5 features.' },
