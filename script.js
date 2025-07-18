@@ -128,6 +128,53 @@ function rotateGreeting() {
 
 // 3. Main jQuery DOM Ready Block
 $(function () {
+  // --------------------------
+  // 👻 Fun Switcher Logic
+  // --------------------------
+  const funBtn = $('#fun-switch-btn');
+  const funForm = $('#fun-switch-form');
+  const nameEl = $('.name');
+  const profileImgEl = $('.profile img');
+  const miniProfileImgEl = $('.mini-profile');
+  let originalName = nameEl.text();
+  let originalImg = profileImgEl.attr('src');
+  let originalMiniImg = miniProfileImgEl.attr('src');
+
+  funBtn.on('click', function () {
+    funForm.slideToggle();
+  });
+
+  funForm.on('submit', function (e) {
+    e.preventDefault();
+    const newName = $('#fun-name-input').val().trim();
+    const fileInput = $('#fun-img-input')[0];
+    if (!newName || !fileInput.files.length) return;
+    // Update name
+    nameEl.text(newName);
+    // Update image preview for both profile and mini-profile
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      profileImgEl.attr('src', event.target.result);
+      miniProfileImgEl.attr('src', event.target.result);
+      // Show popup
+      const popup = $('#fun-switch-popup');
+      popup.fadeIn(300);
+      setTimeout(function() {
+        popup.fadeOut(400);
+      }, 1800);
+    };
+    reader.readAsDataURL(fileInput.files[0]);
+    // Optional: Reset form
+    funForm.trigger('reset');
+    funForm.slideUp();
+  });
+
+  // Reset to original on refresh
+  window.addEventListener('beforeunload', function () {
+    nameEl.text(originalName);
+    profileImgEl.attr('src', originalImg);
+    miniProfileImgEl.attr('src', originalMiniImg);
+  });
   // Handle loader
   const loaderWrapper = $('#loader-wrapper');
   const minLoaderTime = 1400;

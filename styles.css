@@ -1,3 +1,204 @@
+/* Fun Switcher Popup */
+.fun-switch-popup {
+  position: fixed;
+  bottom: 100px;
+  right: 50%;
+  transform: translateX(50%);
+  background: #ff3c3c;
+  color: #fff;
+  font-family: "Kalam", serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 18px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(255,60,60,0.18);
+  z-index: 10001;
+  animation: funPopupFadeIn .3s;
+}
+@keyframes funPopupFadeIn {
+  from { opacity: 0; transform: translateX(50%) scale(0.95); }
+  to { opacity: 1; transform: translateX(50%) scale(1); }
+}
+/* Floating Fun Switcher Button & Form */
+/* Floating Fun Switcher Button & Form */
+#fun-switcher-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.fun-switch-btn {
+  min-width: 56px;
+  max-width: 90vw;
+  height: 56px;
+  border-radius: 28px;
+  background: linear-gradient(90deg, #9573D6 60%, #7B4BC3 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(149,115,214,0.18);
+  font-size: 1.15rem;
+  font-family: "Kalam", serif;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background .2s, transform .2s;
+}
+.fun-switch-btn:hover {
+  background: linear-gradient(90deg, #7B4BC3 60%, #9573D6 100%);
+  transform: scale(1.08);
+}
+.fun-switch-form {
+  position: absolute;
+  bottom: 70px;
+  right: 0;
+  background: #623885;
+  padding: 18px 20px 14px 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+  max-width: 340px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: "Kalam", serif;
+  animation: funFormFadeIn .3s;
+}
+@keyframes funFormFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fun-switch-form label {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.fun-switch-form input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 7px;
+  border: 1.5px solid #9573D6;
+  background: #3C2A5A;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.fun-switch-form input[type="file"] {
+  color: #fff;
+  margin-bottom: 8px;
+}
+.fun-switch-submit {
+  background: #7B4BC3;
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Kalam", serif;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+}
+.fun-switch-submit:hover {
+  background: #9573D6;
+  transform: scale(1.04);
+}
+@media (max-width: 600px) {
+  #fun-switcher-fab {
+    bottom: 12px;
+    right: 12px;
+  }
+  .fun-switch-btn {
+    min-width: 44px;
+    height: 44px;
+    font-size: 0.98rem;
+    padding: 0 10px;
+    border-radius: 22px;
+    max-width: 98vw;
+  }
+  .fun-switch-form {
+    bottom: 54px;
+    max-width: 98vw;
+    padding: 12px 8px 10px 8px;
+    font-size: 0.95rem;
+  }
+}
+/* Fun Switcher Button & Form */
+.fun-switch-btn {
+  margin-top: 24px;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #9573D6 60%, #7B4BC3 100%);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.08rem;
+  font-family: "Kalam", serif;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(149,115,214,0.13);
+  transition: background .2s, transform .2s;
+}
+.fun-switch-btn:hover {
+  background: linear-gradient(90deg, #7B4BC3 60%, #9573D6 100%);
+  transform: translateY(-2px) scale(1.04);
+}
+.fun-switch-form {
+  margin-top: 18px;
+  background: #623885;
+  padding: 18px 20px 14px 20px;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.13);
+  max-width: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: "Kalam", serif;
+}
+.fun-switch-form label {
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+.fun-switch-form input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 7px;
+  border: 1.5px solid #9573D6;
+  background: #3C2A5A;
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+.fun-switch-form input[type="file"] {
+  color: #fff;
+  margin-bottom: 8px;
+}
+.fun-switch-submit {
+  background: #7B4BC3;
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Kalam", serif;
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+}
+.fun-switch-submit:hover {
+  background: #9573D6;
+  transform: scale(1.04);
+}
 @media (max-width: 1024px) {
   .section,
   .timeline-item {
