@@ -151,19 +151,65 @@ $(function () {
     if (!newName || !fileInput.files.length) return;
     // Update name
     nameEl.text(newName);
-    // Update image preview for both profile and mini-profile
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      profileImgEl.attr('src', event.target.result);
-      miniProfileImgEl.attr('src', event.target.result);
-      // Show popup
-      const popup = $('#fun-switch-popup');
-      popup.fadeIn(300);
-      setTimeout(function() {
-        popup.fadeOut(400);
-      }, 1800);
-    };
-    reader.readAsDataURL(fileInput.files[0]);
+    const file = fileInput.files[0];
+    // Improved HEIC detection: check MIME type and extension
+    const isHeic = file && (
+      file.type === 'image/heic' ||
+      file.type === 'image/heif' ||
+      (!file.type && file.name && file.name.toLowerCase().endsWith('.heic')) ||
+      (file.name && file.name.toLowerCase().endsWith('.heic'))
+    );
+    if (isHeic) {
+      // Show loader
+      let heicLoader = $('#heic-loader');
+      if (!heicLoader.length) {
+        heicLoader = $('<div id="heic-loader" style="position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9999;background:rgba(255,255,255,0.8);padding:18px 28px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.12);display:flex;align-items:center;"><span class="loader-spinner" style="width:24px;height:24px;border:3px solid #ccc;border-top:3px solid #007bff;border-radius:50%;display:inline-block;animation:spin 1s linear infinite;margin-right:12px;"></span>Stoling... 🦹‍♂️</div>');
+        $('body').append(heicLoader);
+        // Add spinner animation CSS if not present
+        if (!$('style#heic-loader-style').length) {
+          $('head').append('<style id="heic-loader-style">@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>');
+        }
+      } else {
+        heicLoader.html('<span class="loader-spinner" style="width:24px;height:24px;border:3px solid #ccc;border-top:3px solid #007bff;border-radius:50%;display:inline-block;animation:spin 1s linear infinite;margin-right:12px;"></span>Stoling... 🦹‍♂️');
+        heicLoader.show();
+      }
+      heic2any({
+        blob: file,
+        toType: 'image/jpeg',
+        quality: 0.9
+      }).then(function (convertedBlob) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          profileImgEl.attr('src', event.target.result);
+          miniProfileImgEl.attr('src', event.target.result);
+          // Hide loader
+          heicLoader.fadeOut(200);
+          // Show popup
+          const popup = $('#fun-switch-popup');
+          popup.fadeIn(300);
+          setTimeout(function() {
+            popup.fadeOut(400);
+          }, 1800);
+        };
+        reader.readAsDataURL(convertedBlob);
+      }).catch(function () {
+        heicLoader.fadeOut(200);
+        alert('HEIC image conversion failed. Please use JPEG, PNG, or another supported format.');
+      });
+    } else {
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        profileImgEl.attr('src', event.target.result);
+        miniProfileImgEl.attr('src', event.target.result);
+        // Show popup
+        const popup = $('#fun-switch-popup');
+        popup.fadeIn(300);
+        setTimeout(function() {
+          popup.fadeOut(400);
+        }, 1800);
+      };
+      reader.readAsDataURL(file);
+    }
     // Optional: Reset form
     funForm.trigger('reset');
     funForm.slideUp();
