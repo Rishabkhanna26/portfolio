@@ -258,9 +258,15 @@ $(function () {
   const skillsGrid = $('.skills-grid');
   if (skillsGrid.length) {
     skills.forEach(skill => {
+      // Fallback: If FontAwesome fails, show a default icon
+      let iconHtml = `<i class="${skill.icon}"></i>`;
+      // If icon is missing, show a generic icon
+      if (!skill.icon) {
+        iconHtml = '<i class="fas fa-tools"></i>';
+      }
       skillsGrid.append(`
         <div class="skill-card">
-          <i class="${skill.icon}"></i>
+          ${iconHtml}
           <span>${skill.name}</span>
         </div>
       `);
