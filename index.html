@@ -58,38 +58,48 @@
   <!-- Styles -->
   <link rel="stylesheet" href="styles.css" />
 
-  <!-- Scripts (deferred for performance) -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js" defer></script>
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <!-- Loader -->
-  <div id="loader-wrapper" aria-hidden="true">
-    <div class="loader"><div class="loader-inner"></div></div>
-    <div class="loader-text">Loading portfolio...</div>
-  </div>
-
-  <!-- Fun Switcher Popup (Cast a Spell feedback) -->
-  <div id="fun-switch-popup" class="fun-switch-popup" style="display:none;" role="status" aria-live="polite">AHH!!! You stole my identity</div>
-
-  <!-- Header -->
-  <header class="header" role="banner">
-    <div class="name-container">
-      <img src="propic.jpg" alt="Rishab Khanna - Web Developer" class="mini-profile" loading="lazy" />
-      <h1 class="name playwrite-regular">Rishab Khanna</h1>
+    <!-- jQuery CDN (required for script.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/heic2any/dist/heic2any.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <!-- Modern Loader -->
+    <div id="loader-wrapper">
+      <div class="loader">
+        <div class="loader-inner"></div>
+      </div>
+      <div class="loader-text">Getting Ready...</div>
     </div>
-    <nav class="social-icons" aria-label="Social links">
-      <a href="https://twitter.com/rishabkhanna26" target="_blank" rel="noreferrer" aria-label="Twitter"><i class="fab fa-x-twitter" aria-hidden="true"></i></a>
-      <a href="https://www.instagram.com/rishabkhanna26" target="_blank" rel="noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-      <a href="https://www.linkedin.com/in/rishab-khanna-2833a0340" target="_blank" rel="noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-    </nav>
-  </header>
+    <div class="header">
+      <div class="name-container">
+        <img src="propic.jpg" alt="Mini Profile" class="mini-profile" />
+        <h1 class="name playwrite-regular">Rishab Khanna</h1>
+      </div>
 
-  <!-- Intro -->
-  <section class="container intro" id="about" aria-labelledby="about-title">
-    <div class="profile">
-      <img src="propic.jpg" alt="Freelance WordPress, PHP, and JavaScript Developer in Jalandhar" loading="lazy" />
+      <div class="social-icons">
+        <a
+          href="https://twitter.com/rishabkhanna26"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a
+          href="https://www.instagram.com/rishabkhanna26"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/rishab-khanna-2833a0340"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
     </div>
     <div class="intro-text">
       <h2 id="hello" class="hello kalam-regular">Hello 👋</h2>
