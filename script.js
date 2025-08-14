@@ -223,34 +223,32 @@ $(function () {
     miniProfileImgEl.attr('src', originalMiniImg);
   });
   // Handle loader
-  const loaderWrapper = $('#loader-wrapper');
-  const minLoaderTime = 1400;
-  const maxLoaderTime = 3000; // Fallback: hide loader after 3 seconds
-  const startTime = Date.now();
-
-  let loaderHidden = false;
-  function hideLoader() {
-    if (!loaderHidden) {
+  var loaderWrapper = $('#loader-wrapper');
+  var minLoaderTime = 1400;
+  var maxLoaderTime = 3000; // Fallback: hide loader after 3 seconds
+  var startTime = Date.now();
+  var loaderHidden = false;
+  function hideLoader(force) {
+    if (!loaderHidden || force) {
       loaderHidden = true;
       loaderWrapper.addClass('hidden');
+      // Debug log
+      if (window.console) console.log('Loader hidden');
     }
   }
-
   // Hide loader on window load (normal case)
   $(window).on('load', function () {
-    const timeElapsed = Date.now() - startTime;
-    const remainingTime = Math.max(0, minLoaderTime - timeElapsed);
-    setTimeout(hideLoader, remainingTime);
+    var timeElapsed = Date.now() - startTime;
+    var remainingTime = Math.max(0, minLoaderTime - timeElapsed);
+    setTimeout(function(){ hideLoader(); }, remainingTime);
   });
-
   // Fallback: hide loader after maxLoaderTime in any case
-  setTimeout(hideLoader, maxLoaderTime);
-
+  setTimeout(function(){ hideLoader(true); }, maxLoaderTime);
   // If window is already loaded (e.g., from bfcache or fast reload), hide loader immediately after minLoaderTime
   if (document.readyState === 'complete') {
-    const timeElapsed = Date.now() - startTime;
-    const remainingTime = Math.max(0, minLoaderTime - timeElapsed);
-    setTimeout(hideLoader, remainingTime);
+    var timeElapsed = Date.now() - startTime;
+    var remainingTime = Math.max(0, minLoaderTime - timeElapsed);
+    setTimeout(function(){ hideLoader(); }, remainingTime);
   }
 
   // Start greeting rotation
